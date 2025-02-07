@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,25 +12,30 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./auth-signin.component.scss']
 })
 export default class AuthSigninComponent implements OnInit {
-  private queryParamSub!: Subscription;
+  // private queryParamSub!: Subscription;
   loading: boolean = false;
   showToast = false;
   toastMessage = '';
   toastClass = '';
 
   constructor(
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
   ) {}
 
   ngOnInit(): void {
-    this.queryParamSub = this.route.queryParams.subscribe((params) => {
-      const accessToken = params['access_token'];
-      if (accessToken) {
-        this.handleIamLogin(accessToken);
-      }
-    });
+    this.getAccessTokenFromUrl();
+  }
+
+  getAccessTokenFromUrl(): void {
+    const fragment = window.location.hash.substring(1);
+    const params = new URLSearchParams(fragment);
+    const accessToken = params.get('access_token');
+
+    if (accessToken) {
+      this.handleIamLogin(accessToken);
+    }
   }
 
   handleIamLogin(token: string): void {
@@ -77,11 +82,5 @@ export default class AuthSigninComponent implements OnInit {
           subscription.unsubscribe();
         }
       });
-  }
-
-  ngOnDestroy(): void {
-    if (this.queryParamSub) {
-      this.queryParamSub.unsubscribe();
-    }
   }
 }
