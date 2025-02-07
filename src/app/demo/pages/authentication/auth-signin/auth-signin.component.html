@@ -1,0 +1,48 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          <i class="feather icon-unlock auth-icon"></i>
+        </div>
+       
+        <div *ngIf="showToast" [ngClass]="toastClass" role="alert">
+          {{ toastMessage }}
+        </div>
+
+        <h3 class="mb-4">Login</h3>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" />
+        </div>
+        <div class="input-group mb-4">
+          <input type="password" class="form-control" placeholder="Password" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 4">
+          <button class="btn btn-primary mb-4" style="width: 100%">Login</button>
+          <a
+            href="https://seamfix-iam-lab.iam.seamfix.com/realms/seamfix-iam-lab/protocol/openid-connect/auth?client_id=oidcdemoapp&response_type=token&redirect_uri=https://mjstack.com.ng/oidc/redirect"
+          >
+            <button class="btn mb-4" style="cursor: pointer; width: 100%; color: white; background-color: rgb(15, 136, 15);">Login with Seamfix-IAM</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (loading) {
+  <div class="spinner-overlay" style="display: flex; flex-direction: column; gap: 4px;">
+    <div class="spinner-border text-dark" role="status" style="width: 5rem; height: 5rem;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p style="color: #000; font-size: 18px; z-index: 99999;">Please wait while we authenticate you.</p>
+  </div>
+}
+
