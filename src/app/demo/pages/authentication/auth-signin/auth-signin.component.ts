@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-// import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,14 +11,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./auth-signin.component.scss']
 })
 export default class AuthSigninComponent implements OnInit {
-  // private queryParamSub!: Subscription;
   loading: boolean = false;
   showToast = false;
   toastMessage = '';
   toastClass = '';
 
   constructor(
-    // private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
   ) {}
@@ -55,10 +52,7 @@ export default class AuthSigninComponent implements OnInit {
             this.toastClass = 'alert alert-success';
             this.showToast = true;
             this.loading = false;
-
-            setTimeout(() => {
-              this.router.navigate(['/dashboard']);
-            }, 2000);
+            this.router.navigate(['/dashboard']);
           } else {
             console.error('Login failed:', response.message);
             this.toastMessage = response.message;
